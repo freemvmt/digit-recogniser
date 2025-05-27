@@ -5,6 +5,10 @@ build/
 dist/
 wheels/
 *.egg-info
+.ruff_cache
 
 # Virtual environments
 .venv
+
+# torchvision dataset downloads
+data/MNIST/raw
