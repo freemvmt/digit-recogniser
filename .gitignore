@@ -10,5 +10,5 @@ wheels/
 # Virtual environments
 .venv
 
-# torchvision dataset downloads
+# torchvision datasets
 data/MNIST/raw
