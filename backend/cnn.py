@@ -3,12 +3,12 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 
-# default hyperparameters (in practice we only adjust scale factor, so we expose it in the training script)
-DEFAULT_KERNEL_SIZE = 3
-DEFAULT_SCALE_FACTOR = 32
-DEFAULT_DENSE_LAYER_MULTIPLIER = 4
-DEFAULT_DROPOUT_CONV_P = 0.25
-DEFAULT_DROPOUT_FC_P = 0.5
+# default hyperparameters (in practice we only adjust scale factor, which we expose in the training script)
+KERNEL_SIZE = 3
+SCALE_FACTOR = 32
+DENSE_LAYER_MULTIPLIER = 4
+DROPOUT_CONV_P = 0.25
+DROPOUT_FC_P = 0.5
 
 
 # we build a small convolutional neural network (CNN) appropriate to digit classification
@@ -16,11 +16,11 @@ class BaseCNN(nn.Module):
     # we allow for passing in hyperparams at model instantiation
     def __init__(
         self,
-        factor: int = DEFAULT_SCALE_FACTOR,
-        kernel_size: int = DEFAULT_KERNEL_SIZE,
-        multiplier: int = DEFAULT_DENSE_LAYER_MULTIPLIER,
-        dropout_conv_p: float = DEFAULT_DROPOUT_CONV_P,
-        dropout_fc_p: float = DEFAULT_DROPOUT_FC_P,
+        factor: int = SCALE_FACTOR,
+        kernel_size: int = KERNEL_SIZE,
+        multiplier: int = DENSE_LAYER_MULTIPLIER,
+        dropout_conv_p: float = DROPOUT_CONV_P,
+        dropout_fc_p: float = DROPOUT_FC_P,
     ):
         super().__init__()
         # methods for feature extraction

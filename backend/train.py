@@ -30,7 +30,7 @@ MODEL_SCALE_FACTOR = 32
 DATA_DIR = "data"
 RNG_SEED = 42
 VALIDATION_IMAGES = 5000
-MODEL_PATH = "models/mnist_cnn.{factor}.{epochs}.{acc}.pth"
+MODEL_WEIGHTS_PATH = "weights/mnist_cnn.{factor}.{epochs}.{acc}.pt"
 LOSS_PLOT_PATH = "plots/mnist_cnn_loss.{factor}.{epochs}.{acc}.png"
 ACC_PLOT_PATH = "plots/mnist_cnn_acc.{factor}.{epochs}.{acc}.png"
 DEBUG_MODE = os.getenv("DEBUG_MODE") is not None
@@ -190,7 +190,7 @@ def main() -> None:
     # and finally we save the model
     torch.save(
         model.state_dict(),
-        MODEL_PATH.format(
+        MODEL_WEIGHTS_PATH.format(
             factor=MODEL_SCALE_FACTOR, epochs=TRAINING_EPOCHS, acc=int(accuracy_pc)
         ),
     )

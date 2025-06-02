@@ -1,17 +1,21 @@
 [project]
-name = "digit-recogniser"
+name = "model"
 version = "0.1.0"
-description = "Add your description here"
+description = "Digit recognisers"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "fastapi[standard]>=0.115.12",
+    "gunicorn>=23.0.0",
     "matplotlib>=3.10.3",
     "pillow>=11.2.1",
+    "psycopg[binary,pool]>=3.2.9",
     "streamlit>=1.45.1",
     "streamlit-drawable-canvas>=0.9.3",
     "torch>=2.7.0",
     "torchsummary>=1.5.1",
     "torchvision>=0.22.0",
+    "uvicorn>=0.34.3",
 ]
 
 [tool.uv.sources]

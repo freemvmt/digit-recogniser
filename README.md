@@ -7,15 +7,24 @@ We further make the model available via a Streamlit frontend, allowing the user 
 
 ## Training
 
-Run the training pipeline is very simple:
+Running the training pipeline is very simple: cd into `backend/`, run `uv sync`, activate the virtual environment, and run `python train.py`.
 
-```
-python src/train.py
-```
+For more verbose logging and other DX bits, `export DEBUG_MODE=1` in the shell beforehand.
 
-For more verbose logging, `export LOG_LEVEL_DEBUG=1` in the shell before running.
+You may want to adjust the hyperparameters at the top of the file first. The script will dump the resulting weights in `backend/models/`, and plots of training/validation loss and validation accuracy in `backend/plots/` for your examination (e.g. to consider whether the model may be under- or over-fitted).
 
-You may want to adjust the hyperparameters at the top of the file first. The script will dump the resulting weights in `models/`, and plots of training/validation loss and validation accuracy in `plots/` for your examination (e.g. to consider whether the model may be under- or over-fitted).
+
+## Docker
+
+First replicate the `.env.example` as `.env`, supplying a password for the db you will initialise (see `db/init.sql`).
+
+To build and run the Docker swarm locally, run `docker compose up` with your favourite flags.
+
+Some utility scripts are supplied for ease: `up.sh`, or `upforce.sh` to rebuild images from scratch. These suppress logs and return you to the shell, so if you want to tail after the fact, run something like `docker compose logs -f --tail 20`.
+
+You should then find the Streamlit app at [`http://localhost:8501/`](http://localhost:8501/). You can also view the auto-generated [API docs](http://localhost:8000/docs), and inspect the db via something like [pgAdmin](https://www.pgadmin.org/).
+
+Finally, run `docker compose down` to kill the containers.
 
 
 ## Resources and reference material
