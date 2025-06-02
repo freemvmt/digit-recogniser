@@ -2,7 +2,7 @@ apt install ufw
 ufw default deny incoming
 ufw default allow outgoing
 ufw allow OpenSSH
-ufw allow 8501/tcp
+ufw allow 80/tcp
 ufw enable
 ufw status verbose
 

@@ -27,6 +27,17 @@ You should then find the Streamlit app at [`http://localhost:8501/`](http://loca
 Finally, run `docker compose down` to kill the containers.
 
 
+## Deployment
+
+Deployment should be as simple as...
+
+- Grabbing a box (e.g. [Hetzner](https://www.hetzner.com/)) with a fixed IP
+- Running through some of the commands in `scripts/` (these just intended as a steer)
+- Cloning the [repo](https://github.com/freemvmt/digit-recogniser)
+- Spinning up the Docker stack as above, on the server
+- Hitting the [IP address](http://157.180.89.245) associated with the server!
+
+
 ## Resources and reference material
 
 - Relevant PyTorch tutorials on [neural networks](https://docs.pytorch.org/tutorials/beginner/blitz/neural_networks_tutorial.html) and [training a classifier](https://docs.pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html)
