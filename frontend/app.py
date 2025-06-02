@@ -119,6 +119,7 @@ if "feedback_submitted" in st.session_state and st.session_state.feedback_submit
     st.success("Feedback recorded - thanks!", icon="✅")
     if st.button("Go again!", use_container_width=True):
         # clear most of the session state (but keep history)
+        # FIXME: this doesn't clear the actual canvas, user has to additionally click the trash can
         for key in (
             "canvas",
             "current_pred",

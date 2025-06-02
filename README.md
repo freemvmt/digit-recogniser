@@ -1,5 +1,7 @@
 # Digit recogniser
 
+> v1 is *live* at [mnist.commune.london](http://mnist.commune.london/) (no SSL yet), or directly at [157.180.89.245](http://157.180.89.245/).
+
 This repo demonstrates the use of a convolutional neural network (CNN) to train a model on the [MNIST](https://en.wikipedia.org/wiki/MNIST_database) dataset of handwritten single digits.
 
 We further make the model available via a Streamlit frontend, allowing the user to sketch a digit themselves and see if the model can identify it correctly. They can then submit their effort (along with a truth label) to a database in the backend, with an eye to refining the model later on.
@@ -22,7 +24,7 @@ To build and run the Docker swarm locally, run `docker compose up` with your fav
 
 Some utility scripts are supplied for ease: `up.sh`, or `upforce.sh` to rebuild images from scratch. These suppress logs and return you to the shell, so if you want to tail after the fact, run something like `docker compose logs -f --tail 20`.
 
-You should then find the Streamlit app at [`http://localhost:8501/`](http://localhost:8501/). You can also view the auto-generated [API docs](http://localhost:8000/docs), and inspect the db via something like [pgAdmin](https://www.pgadmin.org/).
+You should then find the Streamlit app at [http://localhost:8501/](http://localhost:8501/). You can also view the auto-generated [API docs](http://localhost:8000/docs), and inspect the db via something like [pgAdmin](https://www.pgadmin.org/).
 
 Finally, run `docker compose down` to kill the containers.
 
