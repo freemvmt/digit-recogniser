@@ -13,7 +13,6 @@ COPY app.py utils.py .streamlit /app/
 RUN chown -R $USER:$USER /app
 USER $USER
 
-# Streamlit listens on 8501 by default
 EXPOSE 8501
 
 # hide telemetry prompts for non-interactive envs

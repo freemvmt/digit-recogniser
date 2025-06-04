@@ -27,7 +27,7 @@ COPY weights/mnist_cnn.16.20.99.pt /app/weights/
 RUN chown -R $USER:$USER /app
 USER $USER
 
-# expose the port FastAPI/gunicorn will listen on
+# expose the port FastAPI/gunicorn will listen on (this line is just documentation, it does nothing)
 EXPOSE 8000
 
 # start the service (call gunicorn server binary directly with Uvicorn worker on port 8000)

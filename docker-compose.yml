@@ -1,13 +1,17 @@
 services:
   backend:
     build: ./backend
-    ports:
-      - "${BACKEND_FASTAPI_PORT}:8000"
+    container_name: backend
+    # expose the backend only to linked services in same network, not to host machine
+    expose:
+      - ${BACKEND_PORT}
     environment:
       - DB_HOST=db
+      - DB_PORT=${DB_PORT}
       - DB_NAME=${POSTGRES_DB}
       - DB_USER=${POSTGRES_USER}
       - DB_PASS=${POSTGRES_PASSWORD}
+    # we have a chain of dependencies i.e. db < backend < frontend < caddy (where < == 'depends on')
     depends_on:
       db:
         condition: service_healthy
@@ -15,18 +19,22 @@ services:
 
   frontend:
     build: ./frontend
-    ports:
-      - "${FRONTEND_STREAMLIT_PORT}:8501"
-    environment:
-      - BACKEND_URL=http://backend:8000/predict
+    container_name: frontend
+    expose:
+      - ${FRONTEND_PORT}
     depends_on: [backend]
     networks: [mnist-net]
 
   db:
     image: postgres:16-alpine
+    container_name: postgres
     restart: unless-stopped
-    ports:
-      - "5432:5432"
+    # we expose the db to the host (and the wider internet) so we can connect to it (e.g via pgAdmin)
+    # XXX: is this right? does pgAdmin use SSH and therefore it works anyway?!
+    # ports:
+    #   - "${DB_PORT}:5432"
+    expose:
+      - ${DB_PORT}
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
@@ -41,9 +49,27 @@ services:
       retries: 5
     networks: [mnist-net]
 
+  caddy:
+    image: caddy:2.10.0-alpine
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      - FRONTEND_PORT=${FRONTEND_PORT}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data  # certs + keys
+      - caddy_config:/config  # autosaved JSON config
+    depends_on: [frontend]
+    networks: [mnist-net]
+
 networks:
   mnist-net:
     driver: bridge
 
 volumes:
+  caddy_config:
+  caddy_data:
   pgdata:
