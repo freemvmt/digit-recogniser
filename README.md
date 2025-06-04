@@ -45,6 +45,18 @@ Deployment should be as simple as...
 - Hitting the [IP address](http://157.180.89.245) associated with the server!
 
 
+### Troubleshooting
+
+1. Did you forget to define your env vars? On your server, at root of the repo, do something like...
+
+```
+cp .env.example .env
+vim .env
+```
+
+And choose some reasonable value for `POSTGRES_PASSWORD`!
+
+
 ## Resources and reference material
 
 - Relevant PyTorch tutorials on [neural networks](https://docs.pytorch.org/tutorials/beginner/blitz/neural_networks_tutorial.html) and [training a classifier](https://docs.pytorch.org/tutorials/beginner/blitz/cifar10_tutorial.html)
