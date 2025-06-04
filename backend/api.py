@@ -30,7 +30,9 @@ async def predict(req: Request) -> dict:
     img = np.load(io.BytesIO(blob))
     logger.info(f"Received image data of shape {img.shape} and dtype {img.dtype}")
     pred, conf = infer(img)
-    logger.info(f"Completed inferrence: prediction is {pred}, with confidence: {conf:.2f}")
+    logger.info(
+        f"Completed inferrence: prediction is {pred}, with confidence: {conf:.2f}"
+    )
     return {
         "prediction": pred,
         "confidence": conf,
