@@ -1,6 +1,6 @@
 # Digit recogniser
 
-> v1 is *live* at [mnist.commune.london](https://mnist.commune.london/), or directly at [157.180.89.245](http://157.180.89.245/).
+> v1 is *live* at [mnist.commune.london](https://mnist.commune.london/).
 
 This repo demonstrates the use of a convolutional neural network (CNN) to train a model on the [MNIST](https://en.wikipedia.org/wiki/MNIST_database) dataset of handwritten single digits.
 
