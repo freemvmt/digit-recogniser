@@ -1,10 +1,9 @@
 # initial block determines global options
 {
 	email freemvmt@posteo.net
-
-	# dev / debugging options (comment out in prod)
-	debug
-	acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+	# dev / debugging options (comment out on prod / in version control)
+	# debug
+	# acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
 }
 
 # always redirect to https for localhost
@@ -14,7 +13,7 @@ http://localhost {
 
 https://localhost {
 	# for local dev, use Caddy’s internal CA instead of ACME
-	# see also https://caddyserver.com/docs/running#local-https-with-docker
+	# browser will complain - see https://caddyserver.com/docs/running#local-https-with-docker
 	tls internal
 	reverse_proxy frontend:{$FRONTEND_PORT}
 	encode gzip

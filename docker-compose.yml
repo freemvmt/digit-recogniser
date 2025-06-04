@@ -2,7 +2,7 @@ services:
   backend:
     build: ./backend
     container_name: backend
-    # expose the backend only to linked services in same network, not to host machine
+    # expose the backend to linked services in same docker network, but not to host machine
     expose:
       - ${BACKEND_PORT}
     environment:
@@ -29,12 +29,9 @@ services:
     image: postgres:16-alpine
     container_name: postgres
     restart: unless-stopped
-    # we expose the db to the host (and the wider internet) so we can connect to it (e.g via pgAdmin)
-    # XXX: is this right? does pgAdmin use SSH and therefore it works anyway?!
-    # ports:
-    #   - "${DB_PORT}:5432"
-    expose:
-      - ${DB_PORT}
+    # we do expose the db to the host so we can connect to it and query the data (e.g via pgAdmin)
+    ports:
+      - "${DB_PORT}:5432"
     environment:
       - POSTGRES_DB=${POSTGRES_DB}
       - POSTGRES_USER=${POSTGRES_USER}
