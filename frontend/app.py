@@ -6,8 +6,8 @@ import streamlit as st
 from streamlit_drawable_canvas import st_canvas
 
 from utils import (
-  get_prediction,
-  put_submission,
+    get_prediction,
+    put_submission,
 )
 
 

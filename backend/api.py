@@ -13,9 +13,10 @@ logger = logging.getLogger(__name__)
 
 
 DB_HOST = os.getenv("DB_HOST")
-DB_NAME=os.getenv("DB_NAME")
-DB_USER=os.getenv("DB_USER")
-DB_PASS=os.getenv("DB_PASS")
+DB_PORT = os.getenv("DB_PORT")
+DB_NAME = os.getenv("DB_NAME")
+DB_USER = os.getenv("DB_USER")
+DB_PASS = os.getenv("DB_PASS")
 
 
 api = FastAPI()
@@ -29,7 +30,9 @@ async def predict(req: Request) -> dict:
     img = np.load(io.BytesIO(blob))
     logger.info(f"Received image data of shape {img.shape} and dtype {img.dtype}")
     pred, conf = infer(img)
-    logger.info(f"Completed inferrence: prediction is {pred}, with confidence: {conf:.2f}")
+    logger.info(
+        f"Completed inferrence: prediction is {pred}, with confidence: {conf:.2f}"
+    )
     return {
         "prediction": pred,
         "confidence": conf,
@@ -41,20 +44,21 @@ async def send_prediction_to_db(req: Request) -> dict:
     """Send submission data to the postgres db."""
     data = await req.json()
     try:
-      with psycopg.connect(
-          host=DB_HOST,
-          port=5432,
-          dbname=DB_NAME,
-          user=DB_USER,
-          password=DB_PASS,
-      ) as conn:
-          with conn.cursor() as cur:
-              # insert the submission into the submissions table
-              cur.execute(
-                  "INSERT INTO submissions (prediction, true_label, confidence) VALUES (%s, %s, %s)",
-                  (data["prediction"], data["true_label"], data["confidence"]))
-              # commt the transaction
-              conn.commit()
+        with psycopg.connect(
+            host=DB_HOST,
+            port=DB_PORT,
+            dbname=DB_NAME,
+            user=DB_USER,
+            password=DB_PASS,
+        ) as conn:
+            with conn.cursor() as cur:
+                # insert the submission into the submissions table
+                cur.execute(
+                    "INSERT INTO submissions (prediction, true_label, confidence) VALUES (%s, %s, %s)",
+                    (data["prediction"], data["true_label"], data["confidence"]),
+                )
+                # commit the transaction
+                conn.commit()
     except psycopg.Error as e:
         msg = f"Error connecting to the database or executing query: {e}"
         logger.error(msg)
